@@ -29,6 +29,7 @@ public class Werknemer implements Serializable {
     @JoinColumn(name = "chefid")
     private Werknemer chef;
     @OneToMany(mappedBy = "chef")
+    @OrderBy("familienaam")
     private Set<Werknemer> werknemers;
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "jobtitelid")
