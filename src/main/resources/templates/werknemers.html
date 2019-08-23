@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="nl" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments::head(title=${werknemer.voornaam} + ' ' + ${werknemer.familienaam})">
+</head>
+<body>
+<dl th:if="${werknemer}!=null" th:object="${werknemer}">
+    <h1 th:text="|*{voornaam} *{familienaam}|"></h1>
+    <dt>Voornaam</dt><dd th:text="*{voornaam}"></dd>
+    <dt>Familienaam</dt><dd th:text="*{familienaam}"></dd>
+    <dt>Email adres</dt><dd th:text="*{email}"></dd>
+    <dt>Salaris</dt><dd th:text="*{salaris}"></dd>
+    <dt>Jobitel</dt><dd th:text="*{jobtitel.naam}"></dd>
+    <dt>Geboorte</dt><dd th:text="*{geboorte}"></dd>
+    <dt>Foto</dt><dd><img th:src="@{/static/images/{id}.jpg(id=*{id})}"></dd>
+</dl>
+</body>
+</html>
