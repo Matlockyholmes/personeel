@@ -11,7 +11,7 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("Werknemershierarchie")
+@RequestMapping("werknemershierarchie")
 public class WerknemerController {
     private final WerknemerService werknemerService;
 
@@ -27,6 +27,13 @@ public class WerknemerController {
     @GetMapping("{optionalWerknemer}")
     public ModelAndView toonWerknemer(@PathVariable Optional<Werknemer> optionalWerknemer){
         ModelAndView modelAndView = new ModelAndView("werknemers");
+        optionalWerknemer.ifPresent(werknemer -> modelAndView.addObject(werknemer));
+        return modelAndView;
+    }
+
+    @GetMapping("opslag/{optionalWerknemer}")
+    public ModelAndView toonOpslag(@PathVariable Optional<Werknemer> optionalWerknemer){
+        ModelAndView modelAndView = new ModelAndView("opslag");
         optionalWerknemer.ifPresent(werknemer -> modelAndView.addObject(werknemer));
         return modelAndView;
     }

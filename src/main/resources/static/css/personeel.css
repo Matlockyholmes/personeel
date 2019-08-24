@@ -78,10 +78,22 @@ input[type='checkbox'] {
 }
 
 nav ul {
-    background-color: red;
+    background-color: teal;
     padding: 0.4em 0;
 }
 
+.rechts{
+    text-decoration: none;
+    color:white;
+    float:right;
+    margin-right: 1em;
+    vertical-align: middle;
+}
+
+.links{
+    float:left;
+    margin-right: 2em;
+}
 nav li {
     display: inline;
 }
@@ -94,7 +106,18 @@ nav li a {
     vertical-align: middle;
 }
 
-nav li a:hover {
+.button,.button:active {
+    font-size: 1em;
+    color:white;
+    background:none;
+    border:none;
+    margin:0;
+    font-weight: bold;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.button:active, .button:hover, nav li a:hover {
     color: #F7FFCC;
 }
 

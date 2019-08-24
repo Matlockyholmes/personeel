@@ -3,24 +3,25 @@
 <head th:replace="fragments::head(title=${werknemer.voornaam} + ' ' + ${werknemer.familienaam})">
 </head>
 <body>
+<nav th:replace="fragments::menu"></nav>
 <dl th:if="${werknemer}!=null" th:object="${werknemer}">
     <h1 th:text="|*{voornaam} *{familienaam}|"></h1>
     <dt>Voornaam</dt><dd th:text="*{voornaam}"></dd>
     <dt>Familienaam</dt><dd th:text="*{familienaam}"></dd>
     <dt>Email adres</dt><dd th:text="*{email}"></dd>
-    <dt>Salaris</dt><dd th:text="*{salaris}"></dd>
+    <dt>Salaris</dt><dd th:text="*{toonSalaris()}"></dd>
     <dt>Jobitel</dt><dd th:text="*{jobtitel.naam}"></dd>
     <dt>Geboorte</dt><dd th:text="|*{geboorte.dayOfMonth}-*{geboorte.monthValue}-*{geboorte.year%100}|"></dd>
     <div th:if="${werknemer.chef}!= null">
-        <dt>Chef</dt><dd><a th:href="@{/Werknemershierarchie/{id}(id=*{chef.id})}" th:text="|*{chef.voornaam} *{chef.familienaam}|"></a></dd>
+        <dt>Chef</dt><dd><a th:href="@{/werknemershierarchie/{id}(id=*{chef.id})}" th:text="|*{chef.voornaam} *{chef.familienaam}|"></a></dd>
     </div>
     <div th:if="${!werknemer.werknemers.isEmpty()}">
     <dt>Ondergeschikten</dt><dd th:each="ondergeschikten:${werknemer.werknemers}">
-        <a th:href="@{/Werknemershierarchie/{id}(id=${ondergeschikten.id})}" th:text="|${ondergeschikten.voornaam} ${ondergeschikten.familienaam}|"></a></dd>
+        <a th:href="@{/werknemershierarchie/{id}(id=${ondergeschikten.id})}" th:text="|${ondergeschikten.voornaam} ${ondergeschikten.familienaam}|"></a></dd>
     </div>
     <dt>Foto</dt><dd><img th:src="@{/images/{id}.jpg(id=*{id})}"></dd>
-    <a th:href="@{/Werknemershierarchie/opslag/{id}(id=*{id})}">Opslag</a>
-    <a th:href="@{/Werknemershierarchie/rijksregisternummer/{id}(id=*{id})}">Rijksregisternummer</a>
+    <a th:href="@{/werknemershierarchie/opslag/{id}(id=*{id})}">Opslag</a>
+    <a th:href="@{/werknemershierarchie/rijksregisternummer/{id}(id=*{id})}">Rijksregisternummer</a>
 </dl>
 </body>
 </html>
