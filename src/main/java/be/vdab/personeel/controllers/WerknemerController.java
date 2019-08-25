@@ -63,5 +63,10 @@ public class WerknemerController {
         return REDIRECT_NA_SUCCES;
     }
 
-
+    @GetMapping("rijksregisternummer/{optionalWerknemer}")
+    public ModelAndView toonRijksregisternummer(@PathVariable Optional<Werknemer> optionalWerknemer){
+        ModelAndView modelAndView = new ModelAndView("rijksregisternummer");
+        optionalWerknemer.ifPresent(werknemer -> modelAndView.addObject(werknemer));
+        return modelAndView;
+    }
 }
