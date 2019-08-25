@@ -15,8 +15,8 @@
     </label>
     <span class="fout" th:errors="*{rijksregisternummer}"></span>
     <div th:if="${#fields.hasGlobalErrors()}">
-        <div class="fout" th:each="err : ${#fields.globalErrors()}"
-             th:text="${err}"></div>
+        <span class="fout" th:each="err : ${#fields.globalErrors()}"
+             th:text="${err}"></span>
     </div>
 </form>
 </body>
