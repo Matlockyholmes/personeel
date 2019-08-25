@@ -102,6 +102,10 @@ public class Werknemer implements Serializable {
         return new DecimalFormat("#,###.00", new DecimalFormatSymbols(Locale.ITALIAN)).format(salaris);
     }
 
+    public void setRijksregisternr(long rijksregisternr) {
+        this.rijksregisternr = rijksregisternr;
+    }
+
     public void geefOpslag(BigDecimal opslag){
         salaris = salaris.add(opslag);
     }

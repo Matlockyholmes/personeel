@@ -29,4 +29,11 @@ public class DefaultWerknemerService implements WerknemerService{
         werknemer.geefOpslag(opslag);
         werknemerRepository.save(werknemer);
     }
+
+    @Override
+    @Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED)
+    public void saveRijksregisternummer(Werknemer werknemer, long rijksregisternummer) {
+        werknemer.setRijksregisternr(rijksregisternummer);
+        werknemerRepository.save(werknemer);
+    }
 }

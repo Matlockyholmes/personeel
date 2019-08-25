@@ -90,6 +90,7 @@ public class WerknemerController {
             redirectAttributes.addFlashAttribute("rijksregisternummerForm", rijksregisternummerForm);
             return REDIRECT_NA_FAAL_RIJKSREGISTER;
         }
+        optionalWerknemer.ifPresent(werknemer -> werknemerService.saveRijksregisternummer(werknemer, rijksregisternummerForm.getRijksregisternummer()));
         return REDIRECT_NA_SUCCES;
     }
 }

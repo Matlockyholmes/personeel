@@ -7,4 +7,5 @@ import java.math.BigDecimal;
 public interface WerknemerService {
     Werknemer findCEO();
     void saveOpslag(Werknemer werknemer, BigDecimal opslag);
+    void saveRijksregisternummer(Werknemer werknemer, long rijksregisternummer);
 }
