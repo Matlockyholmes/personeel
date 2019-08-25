@@ -1,6 +1,9 @@
 package be.vdab.personeel.domain;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.NumberFormat;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -38,6 +41,7 @@ public class Werknemer implements Serializable {
     @JoinColumn(name = "jobtitelid")
     private Jobtitel jobtitel;
     @NotNull
+    @NumberFormat
     private BigDecimal salaris;
     @NotBlank
     private String paswoord;
@@ -98,5 +102,9 @@ public class Werknemer implements Serializable {
 
     public String toonSalaris(){
         return new DecimalFormat("#,###.00", new DecimalFormatSymbols(Locale.ITALIAN)).format(salaris);
+    }
+
+    public void geefOpslag(BigDecimal opslag){
+        salaris = salaris.add(opslag);
     }
 }

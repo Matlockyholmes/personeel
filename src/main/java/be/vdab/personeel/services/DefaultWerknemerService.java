@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+
 
 @Service
 @Transactional(readOnly = true, isolation = Isolation.READ_COMMITTED)
@@ -19,5 +21,12 @@ public class DefaultWerknemerService implements WerknemerService{
     @Override
     public Werknemer findCEO() {
         return werknemerRepository.findByChefIsNull();
+    }
+
+    @Override
+    @Transactional(readOnly = false, isolation = Isolation.READ_COMMITTED)
+    public void saveOpslag(Werknemer werknemer, BigDecimal opslag) {
+        werknemer.geefOpslag(opslag);
+        werknemerRepository.save(werknemer);
     }
 }

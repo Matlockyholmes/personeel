@@ -8,5 +8,12 @@
 <dl>
     <dt>Huidig salaris</dt><dd th:text="*{werknemer.toonSalaris()}"></dd>
 </dl>
+<form method="post" th:action="@{/werknemershierarchie/opslag/{id}(id=${werknemer.id})}" th:object="${opslagForm}">
+    <label>Bedrag:
+        <input th:field="*{opslag}" required autofocus>
+    </label>
+    <input type="submit" value="Opslag">
+    <span class="fout" th:errors="*{opslag}"></span>
+</form>
 </body>
 </html>
