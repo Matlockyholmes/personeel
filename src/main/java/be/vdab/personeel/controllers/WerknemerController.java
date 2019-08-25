@@ -2,6 +2,7 @@ package be.vdab.personeel.controllers;
 
 import be.vdab.personeel.domain.Werknemer;
 import be.vdab.personeel.forms.OpslagForm;
+import be.vdab.personeel.forms.RijksregisternummerForm;
 import be.vdab.personeel.services.WerknemerService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ public class WerknemerController {
     private final WerknemerService werknemerService;
     private static final String REDIRECT_NA_SUCCES = "redirect:/werknemershierarchie/{id}";
     private static final String REDIRECT_NA_FAAL_OPSLAG = "redirect:/werknemershierarchie/opslag/{id}";
+    private static final String REDIRECT_NA_FAAL_RIJKSREGISTER = "redirect:/werknemershierarchie/rijksregisternummer/{id}";
 
     public WerknemerController(WerknemerService werknemerService) {
         this.werknemerService = werknemerService;
@@ -64,9 +66,30 @@ public class WerknemerController {
     }
 
     @GetMapping("rijksregisternummer/{optionalWerknemer}")
-    public ModelAndView toonRijksregisternummer(@PathVariable Optional<Werknemer> optionalWerknemer){
+    public ModelAndView toonRijksregisternummer(@PathVariable Optional<Werknemer> optionalWerknemer, Model model){
         ModelAndView modelAndView = new ModelAndView("rijksregisternummer");
-        optionalWerknemer.ifPresent(werknemer -> modelAndView.addObject(werknemer));
+        if(!model.containsAttribute("rijksregisternummerForm") && optionalWerknemer.isPresent()){
+            Werknemer werknemer = optionalWerknemer.get();
+            model.addAttribute("rijksregisternummerForm", new RijksregisternummerForm(werknemer.getRijksregisternr(), werknemer.getGeboorte()));
+            modelAndView.addObject(new RijksregisternummerForm(werknemer.getRijksregisternr(), werknemer.getGeboorte()))
+                    .addObject("werknemer", werknemer);
+        } else {
+            optionalWerknemer.ifPresent(werknemer -> modelAndView.addObject(werknemer));
+        }
         return modelAndView;
+    }
+
+    @PostMapping("rijksregisternummer/{optionalWerknemer}")
+    public String nieuwRijksregisternummer(@PathVariable Optional<Werknemer> optionalWerknemer, @Valid @ModelAttribute("rijksregisternummerForm") RijksregisternummerForm rijksregisternummerForm,
+                                           BindingResult binding, RedirectAttributes redirectAttributes){
+        AtomicLong id = new AtomicLong();
+        optionalWerknemer.ifPresent(werknemer -> id.set(werknemer.getId()));
+        redirectAttributes.addAttribute("id", id);
+        if (binding.hasErrors()) {
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.rijksregisternummerForm", binding);
+            redirectAttributes.addFlashAttribute("rijksregisternummerForm", rijksregisternummerForm);
+            return REDIRECT_NA_FAAL_RIJKSREGISTER;
+        }
+        return REDIRECT_NA_SUCCES;
     }
 }

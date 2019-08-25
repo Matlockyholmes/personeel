@@ -5,5 +5,19 @@
 <body>
 <nav th:replace="fragments::menu"></nav>
 <h1>Rijksregisternummer van <span th:text="|${werknemer.voornaam} ${werknemer.familienaam}|"></span></h1>
+<form method="post" th:action="@{/werknemershierarchie/rijksregisternummer/{id}(id=${werknemer.id})}" th:object="${rijksregisternummerForm}">
+    <label>Rijksregisternummer:
+        <input th:field="*{rijksregisternummer}" required autofocus>
+    </label>
+    <input type="submit" value="Opslaan">
+    <label>
+        <input type="hidden" th:field="*{geboorteDatum}">
+    </label>
+    <span class="fout" th:errors="*{rijksregisternummer}"></span>
+    <div th:if="${#fields.hasGlobalErrors()}">
+        <div class="fout" th:each="err : ${#fields.globalErrors()}"
+             th:text="${err}"></div>
+    </div>
+</form>
 </body>
 </html>
