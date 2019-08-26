@@ -24,7 +24,7 @@ public class RijksregisternummerValidator implements ConstraintValidator<Rijksre
         boolean correctDag = geboorteDatum.getDayOfMonth() == ((rijksregisternummer / 100000) % 100);
 
         if(correctDag && correctMaand && correctJaar && (geboorteDatum.getYear()) > 2000){
-            return controlegetal == 97 - (2000000000 * (rijksregisternummer / 100) % 97);
+            return controlegetal == 97 - ((2000000000 + (rijksregisternummer / 100)) % 97);
         } else if(correctDag && correctMaand && correctJaar){
             return controlegetal == 97 - ((rijksregisternummer / 100) % 97);
         }
